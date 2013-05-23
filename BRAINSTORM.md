@@ -74,6 +74,12 @@ can be a mess to deal with.
 You can however include a definition for a repository, but don't include it
 by default. Allow the user to choose to do so.
 
+## Don't use hiera functions in your modules
+
+People should not depend on hiera to use your module. And they should be free to use the hiera variables they want.
+
+Hiera should be used at manifest-level (or inside "meta-modules") and never in generic modules.
+
 ## Other stuff you should pay attention to
 
 * Always depend on the alias of a package, but not on the class that installs that package.
