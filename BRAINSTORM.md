@@ -7,7 +7,7 @@ configuration. An example in it's most primitive form:
 
 Bad:
 
-```
+```puppet
   class x::params {
     $foo = 'bar'
   }
@@ -15,7 +15,7 @@ Bad:
 
 Good:
 
-```
+```puppet
   class x::params (
     $foo = 'bar'
   ) {
@@ -31,7 +31,7 @@ Good:
 
 Better:
 
-```
+```puppet
   class x::params(
     $foo = 'bar',
     $os_dep = undef,
@@ -50,11 +50,19 @@ Better:
     $os_dep = $::x::params::_os_dep,
   ) inherits ::x::params  {
 
-    # VICTORY, I CAN OVERLOAD SHIT GLOBALLY, AND CLASS SPECIFIC!!
+    # VICTORY, I CAN OVERLOAD VARIABLES GLOBALLY, AND CLASS SPECIFIC!!
 
   }
 
 ```
+## sanity checks
+
+Check requirements on top of your class as much as possible
+Do a case statement to check for whatever you need to check and fail
+if something is unsupported.
+
+Every fail you use should be mentioned in the docs ofcourse.
+
 
 ## Don't configure repositories.
 
@@ -81,4 +89,23 @@ by default. Allow the user to choose to do so.
 ## Stuff to think about
 
 How are we going to version the hieradata folder?
+
+
+## puppet.conf directives I should remember in case I ever need them
+
+dynamicfacts:
+  Facts that are dynamic; these  facts  will  be  ignored  when  deciding
+  whether  changed  facts  should  result  in a recompile. Multiple facts
+  should be comma-separated.
+
+  Default: memorysize,memoryfree,swapsize,swapfree
+
+
+
+templatedir:
+  Where Puppet looks for template files. Can be a list of colon-seperated
+  directories.
+
+  Default: $vardir/templates
+
 
